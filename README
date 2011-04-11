@@ -3,18 +3,13 @@ Simple Test Plans
 
 This is a standalone Rails application that provides a simple CMS for editing and using Test Plans.
 
-Test Plans in this case mean short, logically grouped sets of tasks that have to be performed in a certain order by
-a Quality Assurance Engineer (a tester). Yes, this means manual tests. Yes, we are aware that there is a plethora of
-programmatic test systems out there, including high-level integration tests that use real browsers to test web pages.
+Test Plans in this case mean short, logically grouped sets of tasks that have to be performed in a certain order by a Quality Assurance Engineer (a tester). Yes, this means manual tests. Yes, we are aware that there is a plethora of programmatic test systems out there, including high-level integration tests that use real browsers to test web pages.
 
 We are urging you to use these systems as much as possible. But we are also certain that there is no silver bullet, and
 that in order to achieve the best quality of your software, you need real-live humans to test your software as well.
 
-The simple reason for this is: Your programmatic tests can only test what the developers thought of when writing tests.
-A human can easily see that, for example, your graphics guru has decided to turn the background pink - none of your tests will
-check that, probably.
+The simple reason for this is: Your programmatic tests can only test what the developers thought of when writing tests. A human can easily see that, for example, your graphics guru has decided to turn the background pink - none of your tests will check that, probably.
 
-That's what you want test plans for. These are basically checklists (a lot of people do something similar already with some
-Excel atrocity) on steroids, created with testing in mind.
+That's what you want test plans for. These are basically checklists (a lot of people do something similar already with some Excel atrocity) on steroids, created with testing in mind.
 
-This app is an extraction from the Test Plan System used at www.travel-iq.com - and it's a work in progress.
+This app is an extraction from the Test Plan System used at www.travel-iq.com - and it's a work in progress. It's not even working yet...
