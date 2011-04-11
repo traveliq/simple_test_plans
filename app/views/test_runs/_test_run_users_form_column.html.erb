@@ -1,0 +1,25 @@
+<% test_context = TestContext.find(params['test_context_id']) %>
+<% if test_context.name =~ /deploy/i %>
+  <dl>
+    <dt>
+      <label>Testers</label>
+    </dt>
+    <dd>
+      <% i = 1
+      User.find(:all, :conditions => "type = 'Administrator' AND state = 'active'").each do |user|%>
+        <label>
+          <%= check_box_tag("testers[#{user.id}]")%>
+          <%= user.first_name%>
+        </label>
+        <%
+        i = i + 1
+        if i == 8
+          i = 1%>
+          <br/>
+        <%
+        end
+      end
+    %>
+    </dd>
+  </dl>
+<% end %>

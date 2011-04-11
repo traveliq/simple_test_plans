@@ -1,0 +1,16 @@
+<dl>
+  <dt>
+    <label>Result</label>
+  </dt>
+  <dd>
+    <div>
+      <% [['Pass', 'finished_with_success'],['Fail', 'finished_with_failure'],['N/A', 'finished_with_na']].each do |name, state|
+        if @record['state']== state %>
+          <%= name %>
+        <% else %>
+          <%= submit_tag(name)%>
+        <% end
+      end %>
+    </div>
+  </dd>
+</dl>

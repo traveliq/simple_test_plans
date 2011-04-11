@@ -1,0 +1,12 @@
+<dl>
+  <dt>
+    <label>Test contexts</label>
+  </dt>
+  <dd>
+    <%
+    TestContext.find(:all).each do |context|%>
+      <%= check_box_tag("contexts[#{context.id}]", "1", true)%>
+      <%= context.name%>
+      <% end %>
+  </dd>
+</dl>

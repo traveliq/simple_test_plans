@@ -1,0 +1,6 @@
+one:
+ name: Deploy/Production
+
+two:
+ name: Deploy/Staging
+

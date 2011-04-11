@@ -1,0 +1,53 @@
+xml.instruct!
+xml.rss(:version => "2.0") do
+  xml.channel do
+    xml.title "Parser Daily Test Results"
+    xml.description "TravelIQ Daily Parser Test Results"
+    xml.pubDate Time.now.localtime.rfc2822
+    xml.link url_for(:controller => 'test_runs', :action => "dailies",
+      :only_path => false)
+    @test_runs.each do |test_run|
+      xml.item do
+        xml.title "#{test_run} #{test_run.test_groups.first.user.name}" +
+          " (#{test_run.state})"
+        xml.link url_for(:controller => 'test_runs', :action => 'show',
+          :id => test_run.id, :only_path => false)
+        xml.guid url_for(:controller => 'test_runs', :action => 'show',
+          :id => test_run.id, :only_path => false)
+        xml.pubDate test_run.created_at.localtime.rfc2822
+        xml.description do
+          html = "<p> "
+          if test_run.finished_at
+            html << "finished at #{test_run.finished_at.localtime.strftime("%d/%m/%Y %I:%M %p")} "
+            html << "(#{test_run_duration_column(test_run)}) "
+          end
+          html << "</p>"
+
+          html << "<p>Message: #{test_run.message}</p>" if test_run.message
+
+          html << "<p>"
+          html << test_run.test_groups.collect do |test_group|
+            name = test_group.message.blank? ? test_group.test_group_template.name : test_group.message
+            h = link_to name, test_context_test_run_test_group_test_tasks_url(test_run.test_context, test_run, test_group), :popup => true
+            if test_group.state =~ /failure/
+              h << "<font color='#ff0000'>(#{test_group.state})</font>"
+            else
+              h << "(#{test_group.state})"
+            end
+          end.join(', ')
+          html << "</p>"
+ 
+          html << "<p>"
+          h =<<aa
+          <form target="_blank" name="edit_form" method="post" action=#{test_task_url_params_search(test_run.search)}>
+            <input type="submit" value="Redo Search" name="commit"/>
+          </form>
+aa
+          html << h       
+          html << "</p>"
+          xml.cdata! html
+        end
+      end
+    end
+  end
+end 

@@ -1,0 +1,11 @@
+one:
+  test_run: one
+  test_group_template: one
+  user: quentin
+  state: running
+
+two:
+  test_run: two
+  test_group_template: one
+  user: quentin
+  state: running
