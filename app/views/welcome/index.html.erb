@@ -1,7 +1,14 @@
-<h1><%= "Testing" %></h1>
-<%= link_to "Test Contexts", :controller => 'test_contexts'%><br/>
-<%= link_to "Test Runs", :controller => 'test_runs'%><br/>
-<%= link_to "Test Group Templates", :controller => 'test_group_templates'%><br/>
-<%= link_to "Test Task Templates", :controller => 'test_task_templates'%><br/>
-<%= link_to "Test Groups", :controller => 'test_groups'%><br/>
-<%= link_to "Test Tasks", :controller => 'test_tasks'%><br/>
+<h1>Dead simple test plans</h1>
+<%= link_to "Users", :controller => 'users'%> <= Set up people that get to perform tests
+<br/>
+<%= link_to "Test Contexts", :controller => 'test_contexts'%> <= Set up contexts for your tests to be performed in
+<br/>
+<%= link_to "Test Runs", :controller => 'test_runs'%> <= Start a test run, or see the current one or old ones
+<br/>
+<%= link_to "Test Group Templates", :controller => 'test_group_templates'%> <= Edit test groups (one set of test tasks, assigned to one user as a whole)
+<br/>
+<%= link_to "Test Task Templates", :controller => 'test_task_templates'%> <= Edit task templates - the actual steps of a test to be performed
+<br/>
+<%= link_to "Test Groups", :controller => 'test_groups'%> <= See test groups that have been performed
+<br/>
+<%= link_to "Test Tasks", :controller => 'test_tasks'%> <= See tasks that have been performed

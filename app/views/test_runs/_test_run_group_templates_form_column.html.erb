@@ -1,23 +1,21 @@
 <% test_context = TestContext.find(params['test_context_id']) %>
-<% if test_context.name =~ /deploy/i %>
-  <dl>
-    <dt>
-      <label>Test Group Templates</label>
-    </dt>
-    <dd>
-      <%  %>
-      <% i = 1
-      test_context.test_group_templates.not_deleted.each do |tgt| %>
-        <label>
-          <%= check_box_tag("tgts[#{tgt.id}]", "1", true) %>
-          <%= tgt.name %>
-        </label>
-        <% i = i + 1
-        if i == 8
-          i = 1 %>
-          <br/>
-        <% end %>
+<dl>
+  <dt>
+    <label>Test Group Templates</label>
+  </dt>
+  <dd>
+    <%  %>
+    <% i = 1
+    test_context.test_group_templates.not_deleted.each do |tgt| %>
+      <label>
+        <%= check_box_tag("tgts[#{tgt.id}]", "1", true) %>
+        <%= tgt.name %>
+      </label>
+      <% i = i + 1
+      if i == 8
+        i = 1 %>
+        <br/>
       <% end %>
-    </dd>
-  </dl>
-<% end %>
+    <% end %>
+  </dd>
+</dl>

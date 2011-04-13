@@ -14,4 +14,8 @@ describe User do
     @user.email = nil
     @user.should_not be_valid
   end
+
+  it "doesn't allow duplicate mails" do
+    User.new(:email => @user.email).should_not be_valid
+  end
 end

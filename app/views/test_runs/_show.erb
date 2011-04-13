@@ -3,7 +3,7 @@
 <%= render :partial => 'show_columns', :locals => {:columns => active_scaffold_config.show.columns} -%>
 <dl>
   <dt>Test groups</dt>
-  <dd><%= render(:active_scaffold => 'admin/test_groups', :constraints => {:test_run_id => @record.id})%></dd>
+  <dd><%= render(:active_scaffold => 'test_groups', :constraints => {:test_run_id => @record.id})%></dd>
 </dl>
 
 <p class="form-footer">

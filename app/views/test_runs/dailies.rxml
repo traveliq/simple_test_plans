@@ -1,8 +1,8 @@
 xml.instruct!
 xml.rss(:version => "2.0") do
   xml.channel do
-    xml.title "Parser Daily Test Results"
-    xml.description "TravelIQ Daily Parser Test Results"
+    xml.title "Daily Test Results"
+    xml.description "Daily Test Results"
     xml.pubDate Time.now.localtime.rfc2822
     xml.link url_for(:controller => 'test_runs', :action => "dailies",
       :only_path => false)
@@ -35,17 +35,6 @@ xml.rss(:version => "2.0") do
               h << "(#{test_group.state})"
             end
           end.join(', ')
-          html << "</p>"
- 
-          html << "<p>"
-          h =<<aa
-          <form target="_blank" name="edit_form" method="post" action=#{test_task_url_params_search(test_run.search)}>
-            <input type="submit" value="Redo Search" name="commit"/>
-          </form>
-aa
-          html << h       
-          html << "</p>"
-          xml.cdata! html
         end
       end
     end

@@ -31,13 +31,14 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   map.resources :test_contexts, :active_scaffold => true, :controller => "test_contexts" do |test_context|
-     test_context.resources :test_runs, :active_scaffold => true, :controller => "test_runs" do |test_run|
-       test_run.resources :test_groups, :active_scaffold => true, :controller => "test_groups" do |test_group|
-         test_group.resources :test_tasks, :active_scaffold => true, :controller => "test_tasks" do
-         end
-       end
-     end
-   end
+    test_context.resources :test_runs, :active_scaffold => true, :controller => "test_runs" do |test_run|
+      test_run.resources :test_groups, :active_scaffold => true, :controller => "test_groups" do |test_group|
+        test_group.resources :test_tasks, :active_scaffold => true, :controller => "test_tasks"
+      end
+    end
+  end
+
+  map.resources :users, :active_scaffold => true
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "welcome"

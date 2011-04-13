@@ -1,10 +1,5 @@
 class TestTasksController < ApplicationController
 
-  before_filter :show_ticket_number
-  before_filter :create_ticket
-
-  layout 'admin/active_scaffold'
-
   active_scaffold :test_tasks do |config|
     config.columns = [:id, :state, :test_group, :task_template_text, :task_template_outcome, :position, :finished_at, :ticket_number, :comment]
     config.columns[:task_template_text].label = 'Text'
@@ -29,7 +24,7 @@ class TestTasksController < ApplicationController
       else
         test_run = test_group.test_run
         params.delete('id')
-        redirect_to "/admin/test_contexts/#{test_run.test_context.id}/test_runs/#{test_run.id}"
+        redirect_to "/test_contexts/#{test_run.test_context.id}/test_runs/#{test_run.id}"
       end
     else
       render(:action => 'update', :layout => true)
@@ -68,15 +63,6 @@ class TestTasksController < ApplicationController
           @record.send("finish_with_#{state}!") and @record.save_associated!
         end
       end
-    end
-  end
-
-  def show_ticket_number
-    if test_task_id = params[:id] and
-        test_task = TestTask.find_by_id(test_task_id) and
-        !(test_task.test_group.test_run.test_context.name =~ /deploy/i) and
-        test_task.state == 'running'
-      active_scaffold_config.update.columns.exclude :ticket_number
     end
   end
 

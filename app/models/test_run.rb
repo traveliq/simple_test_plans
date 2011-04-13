@@ -135,7 +135,7 @@ class TestRun < ActiveRecord::Base
     reload.test_groups.each do |tg|
       tester = tg.user
       if testers.include?(tester.id.to_s)
-        url = "#{host}/admin/test_contexts/#{test_context.id}/test_runs/#{id}/test_groups/#{tg.id}/test_tasks/#{tg.test_tasks.first.id}/edit"
+        url = "#{host}/test_contexts/#{test_context.id}/test_runs/#{id}/test_groups/#{tg.id}/test_tasks/#{tg.test_tasks.first.id}/edit"
         UserMailer.deliver_test_task(tester, url, "#{tg.to_s}")
         testers.delete(tester.id.to_s)
       end
@@ -143,11 +143,28 @@ class TestRun < ActiveRecord::Base
   end
 
   def to_s
-    "#{created_at.localtime.strftime("%d.%m.%y")} #{test_context.name} #{message} #{search}"
+    "#{created_at.localtime.strftime("%d.%m.%y")} #{test_context.name} #{message}"
   end
 
   def next_unfinished_group(user_id)
     test_groups.find_by_state_and_user_id('running', user_id)
+  end
+
+  def duration
+    if finished_at
+      duration = finished_at - created_at
+      if duration < 60
+        "#{duration} sec"
+      elsif duration < 3600
+        "#{(duration / 60).to_i} min #{(duration % 60).to_i} sec"
+      else
+        hour = (duration / 3600).to_i
+        duration = (duration % 3600).to_i
+        "#{hour} hours #{(duration / 60).to_i} mins #{(duration % 60).to_i} secs"
+      end
+    else
+      nil
+    end
   end
 
 end

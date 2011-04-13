@@ -1,6 +1,7 @@
 class TestTask < ActiveRecord::Base
   include AASM
 
+
   validates_presence_of :state, :test_group_id, :test_task_template_id
 
   belongs_to :test_group
@@ -81,6 +82,23 @@ class TestTask < ActiveRecord::Base
 
   def to_s
     "#{test_group} (Test #{position}/#{test_group.test_tasks.count}), (Total #{tester_finished_tasks + 1}/#{tester_total_tasks})"
+  end
+
+  def ticket_number
+    ticket_number = self[:ticket_number]
+    if ticket_number.blank?
+      '-'
+    else
+      link_to "##{ticket_number}", "http://your-issue-tracker.com/show/#{ticket_number}"
+    end
+  end
+
+  def task_template_text
+    test_task_template.text
+  end
+
+  def task_template_outcome
+    test_task_template.expected_outcome
   end
   
 end
