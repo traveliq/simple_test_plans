@@ -98,31 +98,15 @@ class TestRun < ActiveRecord::Base
 
   def init_test_group_templates(tgts = nil)
     templates = []
-    if test_context.name =~ /deploy/i
-      test_context.test_group_templates.not_deleted.each do |tgt|
-        next unless tgts.include?(tgt.id.to_s)
-        templates << [tgt, nil]
-      end
-    elsif test_context.name =~ /hotel/i or test_context.name =~ /flight/i
-      class_name = test_context.name =~ /hotel/i ? HotelsParser : FlightsParser
-      parsers = class_name.enabled.all
-      test_context.test_group_templates.find(:all, :conditions => "deleted_at is null and name like '%General%'").each do |tgt|
-        templates << [tgt, nil]
-      end
-      test_group_templates = test_context.test_group_templates.find(:all, :conditions => "deleted_at is null and name not like '%General%'")
-      parsers.each do |p|
-        next unless p.handles?(self.search)
-        test_group_templates.each do |tgt|
-        templates << [tgt, p.name]
-        end
-      end
+    test_context.test_group_templates.not_deleted.each do |tgt|
+      next unless tgts.include?(tgt.id.to_s)
+      templates << [tgt, nil]
     end
     templates
   end
 
   def init(testers, tgts, host)
     testers = [current_user.id] if testers.size == 0
-    init_search
     testers_array = []
     init_test_group_templates(tgts).each do |tgt, message|
       testers_array = testers.clone if testers_array.size == 0
@@ -148,14 +132,12 @@ class TestRun < ActiveRecord::Base
         )
       end      
     end
-    if test_context.name =~ /deploy/i
-      reload.test_groups.each do |tg|
-        tester = tg.user
-        if testers.include?(tester.id.to_s)
-          url = "#{host}/admin/test_contexts/#{test_context.id}/test_runs/#{id}/test_groups/#{tg.id}/test_tasks/#{tg.test_tasks.first.id}/edit"
-          UserMailer.deliver_test_task(tester, url, "#{tg.to_s}")
-          testers.delete(tester.id.to_s)
-        end
+    reload.test_groups.each do |tg|
+      tester = tg.user
+      if testers.include?(tester.id.to_s)
+        url = "#{host}/admin/test_contexts/#{test_context.id}/test_runs/#{id}/test_groups/#{tg.id}/test_tasks/#{tg.test_tasks.first.id}/edit"
+        UserMailer.deliver_test_task(tester, url, "#{tg.to_s}")
+        testers.delete(tester.id.to_s)
       end
     end
   end

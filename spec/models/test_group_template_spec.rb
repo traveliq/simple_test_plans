@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TestGroupTemplate do
+  fixtures :test_contexts, :test_runs, :users
   before(:each) do
     @test_group_template = TestGroupTemplate.create!(:name => 'Doorway')
   end
@@ -39,7 +40,7 @@ describe TestGroupTemplate do
   it "should has_many test_groups" do
     test_run_1 = test_runs(:one)
     test_run_2 = test_runs(:two)
-    user = User.first
+    user = users(:tester)
     TestGroup.create!(
       :test_run_id => test_run_1.id,
       :user_id => user.id,

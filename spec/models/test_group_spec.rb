@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TestGroup do
+  fixtures :test_runs
   before(:each) do
     @test_run = test_runs(:one)
     @user = User.first
@@ -33,6 +34,7 @@ describe TestGroup do
 end
 
 describe TestGroup, 'AASM' do
+  fixtures :test_runs
   before(:each) do
     @test_run = test_runs(:one)
     @user = User.first
@@ -80,6 +82,7 @@ describe TestGroup, 'AASM' do
 end
 
 describe TestGroup, 'update_aggregate_date' do
+  fixtures :test_groups, :test_runs
   before(:each) do
     @test_group = test_groups(:one)
     @test_task_1 = TestTask.create!(:test_group_id => @test_group.id, :test_task_template_id => 1, :state => 'running')

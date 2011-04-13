@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TestRun do
+  fixtures :test_contexts
   before(:each) do
     @test_context = test_contexts(:one)
   end
@@ -24,6 +25,7 @@ describe TestRun do
 end
 
 describe TestRun, 'AASM' do
+  fixtures :test_contexts
   before(:each) do
     @test_context = test_contexts(:one)
     @test_run = TestRun.create!(:test_context_id => @test_context.id, :state => 'running')
@@ -64,6 +66,7 @@ describe TestRun, 'AASM' do
 end
 
 describe TestRun, 'update_aggregate_date' do
+  fixtures :test_contexts
   before(:each) do
     @test_context = test_contexts(:one)
     @test_run = TestRun.create!(:test_context_id => @test_context.id, :state => 'running')

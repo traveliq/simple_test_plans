@@ -1,6 +1,11 @@
 class CreateTestModels < ActiveRecord::Migration
   def self.up
     
+    create_table "users", :force => true do |t|
+      t.string :email, :null => false
+      t.timestamps
+    end
+
     create_table "test_contextings", :force => true do |t|
       t.integer  "test_context_id",        :null => false
       t.integer  "test_group_template_id", :null => false
@@ -45,8 +50,6 @@ class CreateTestModels < ActiveRecord::Migration
       t.datetime "finished_at"
       t.datetime "created_at"
       t.datetime "updated_at"
-      t.integer  "search_id"
-      t.string   "search_type"
     end
     
     add_index "test_runs", ["test_context_id"], :name => "index_test_runs_on_test_context_id"

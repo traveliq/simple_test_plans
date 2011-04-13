@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TestTaskTemplate do
+  fixtures :test_groups, :test_group_templates
   before(:each) do
     @test_group_template = test_group_templates(:one)    
     @test_task_template = TestTaskTemplate.create!(

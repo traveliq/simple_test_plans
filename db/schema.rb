@@ -55,8 +55,6 @@ ActiveRecord::Schema.define(:version => 20110411142207) do
     t.datetime "finished_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "search_id"
-    t.string   "search_type"
   end
 
   add_index "test_runs", ["test_context_id"], :name => "index_test_runs_on_test_context_id"
@@ -87,5 +85,11 @@ ActiveRecord::Schema.define(:version => 20110411142207) do
 
   add_index "test_tasks", ["test_group_id"], :name => "index_test_tasks_on_test_group_id"
   add_index "test_tasks", ["test_task_template_id"], :name => "index_test_tasks_on_test_task_template_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "email",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

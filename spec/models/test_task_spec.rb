@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TestTask do
+  fixtures :test_groups
   before(:each) do
     @test_group = test_groups(:one)
     @test_group_template = TestGroupTemplate.create!(:name => 'Doorway')
@@ -38,6 +39,7 @@ describe TestTask do
 end
 
 describe TestTask, 'AASM' do
+  fixtures :test_groups, :test_runs
   before(:each) do
     @test_group = test_groups(:one)
     @test_group_template = TestGroupTemplate.create!(:name => 'Doorway')
@@ -68,6 +70,7 @@ describe TestTask, 'AASM' do
 end
 
 describe TestGroup, 'update_aggregate_date' do
+  fixtures :test_groups, :test_runs
   before(:each) do
     @test_group = test_groups(:one)
     @test_group_template = TestGroupTemplate.create!(:name => 'Doorway')
